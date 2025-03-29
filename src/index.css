@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-flare-pulse: flare-pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes flare-pulse {
+    0%, 100% {
+      transform: scale(0.4);  /* Slower scale at the start and end */
+      opacity: 0.1;  /* Lower opacity */
+    }
+    50% {
+      transform: scale(1.2);  /* Smaller scale at the peak */
+      opacity: 0.3;  /* A bit more opacity at the peak */
+    }
+  }
+}
