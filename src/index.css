@@ -1,16 +1,40 @@
 @import "tailwindcss";
 
-@theme {
-  --animate-flare-pulse: flare-pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  
-  @keyframes flare-pulse {
-    0%, 100% {
-      transform: scale(0.4);  /* Slower scale at the start and end */
-      opacity: 0.1;  /* Lower opacity */
-    }
-    50% {
-      transform: scale(1.2);  /* Smaller scale at the peak */
-      opacity: 0.3;  /* A bit more opacity at the peak */
-    }
-  }
+
+
+/* Custom Animations */
+@keyframes aura-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes aura-spin-reverse {
+  0% { transform: rotate(360deg) scale(0.9); }
+  100% { transform: rotate(0deg) scale(0.9); }
+}
+
+@keyframes aura-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* Component Styles */
+.animate-aura-spin {
+  animation: aura-spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-aura-spin-reverse {
+  animation: aura-spin-reverse 2s linear infinite;
+}
+
+.animate-aura-pulse {
+  animation: aura-pulse 1.8s ease-in-out infinite;
+}
+
+.shadow-aura-glow {
+  box-shadow: 0 0 25px rgba(3, 224, 110, 0.3);
+}
+
+.shadow-aura-glow-inner {
+  box-shadow: inset 0 0 15px rgba(46, 191, 2, 0.4);
 }

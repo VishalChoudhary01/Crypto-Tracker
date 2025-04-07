@@ -1,24 +1,28 @@
+// App.js
 import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router'
 import Navbar from './components/Navbar'
 import CoinTable from './components/CoinTable'
-import Top from './pages/Top'
 import Trending from './pages/Trending'
 import SavedCoin from './pages/SavedCoin'
-import { BrowserRouter as Router , Route,Routes } from 'react-router'
+import CryptoBackground from './pages/Background'
+import {store} from './app/store'
+import { Provider } from 'react-redux'
+
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
     <Router>
-    <Navbar/>
-      <Routes>
-        <Route path='/' element={<CoinTable/>}>
-          <Route path= 'top' element={<Top/>}/>
-          <Route path='trending' element={<Trending/>}/>
-          <Route path='savedcoins' element={<SavedCoin/>}/>
-        </Route>
-      </Routes>
+      <CryptoBackground>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<CoinTable />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/savedcoins" element={<SavedCoin />} />
+        </Routes>
+      </CryptoBackground>
     </Router>
-    </>
+    </Provider>
   )
 }
 
