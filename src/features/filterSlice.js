@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    currency: "usd",
+    currency: "inr",
     activeSection: 'all',
     sortBy: 'market_cap_desc',
-    perPage: 20,
+    perPage: 10,
     page: 1,
-    
+    searchQuery: "",
+    selectedCoinId: null,
 };
 
 export const filtersSlice = createSlice({
@@ -28,11 +29,25 @@ export const filtersSlice = createSlice({
         setPerPage: (state, action) => {
             state.perPage = action.payload;
         },
-        resetFilters: (state) => {
-            return initialState;
-        }
+        setSearchQuery: (state, action) => {
+            state.searchQuery = action.payload;
+        },
+        resetFilters: () => initialState,
+        setSelectedCoinId: (state, action) => {
+            state.selectedCoinId = action.payload;
+        },
     }
 });
 
-export const { setCurrency, setActiveSection, setPage, setSortBy, setPerPage, resetFilters } = filtersSlice.actions;
+export const { 
+    setCurrency, 
+    setActiveSection, 
+    setSortBy, 
+    setPage, 
+    setPerPage, 
+    resetFilters,
+    setSearchQuery,
+    setSelectedCoinId
+} = filtersSlice.actions;
+
 export default filtersSlice.reducer;

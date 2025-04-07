@@ -8,28 +8,30 @@ export const api = createApi({
             return headers;
         }
     }),
-    tagTypes: ['Coins', 'Trending'],
     endpoints: (builder) => ({
         getAllCoins: builder.query({
-            query: ({ currency = 'usd', order = 'market_cap_desc', perPage=20,page = 1 }) => 
-                `/coins/markets?vs_currency=${currency}&order=${order}&per_page=${perPage}&page=${page}`,
-            providesTags: ['Coins'],
-            transformErrorResponse: (response) => {
-                return response.data?.error || 'Failed to fetch coins';
-            }
-        }),
+            query: ({ currency, order, perPage, page, ids }) => 
+              `/coins/markets?vs_currency=${currency}&order=${order}&per_page=${perPage}&page=${page}${
+                ids ? `&ids=${ids}` : ''
+              }`,
+          }),
         getTrendingCoins: builder.query({
             query: () => '/search/trending',
-            providesTags: ['Trending'],
             transformResponse: (response) => response.coins?.map(coin => coin.item) || []
         }),
-        getCoinDetails: builder.query({
-            query: (id) => `/coins/${id}?localization=false&tickers=false&market_data=true`,
-            transformResponse: (response) => ({
-                ...response,
-            })
-        })
+        getSearchCoins: builder.query({
+            query: (query) => `/search?query=${query}`,
+            transformResponse: (response) => response.coins.map(coin => ({
+                id: coin.id,
+                name: coin.name,
+                symbol: coin.symbol,
+                market_cap_rank: coin.market_cap_rank,
+                thumb: coin.thumb,
+                large: coin.large
+            }))
+        }),
+        
     })
 });
 
-export const {useGetAllCoinsQuery,useGetCoinDetailsQuery,useGetTrendingCoinsQuery} = api;
+export const {useGetAllCoinsQuery,useGetTrendingCoinsQuery,useGetSearchCoinsQuery} = api;

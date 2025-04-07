@@ -43,7 +43,7 @@ const Toast = ({ showFeedback, isSaved }) => {
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
-            transition={{ duration: 4, ease: 'linear' }}
+            transition={{ duration: 1, ease: 'linear' }}
             className={`absolute bottom-0 left-0 h-[2px] ${isSuccess ? 'bg-green-400/30' : 'bg-red-400/30'} rounded-full`}
           />
         </div>

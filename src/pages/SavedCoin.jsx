@@ -13,7 +13,7 @@ const SavedCoins = () => {
   const handleRemoveSavedCoin = (coin) => {
     dispatch(toggleSavedCoin(coin));  
     setShowFeedback(coin.id);
-    setTimeout(() => setShowFeedback(null), 4000);
+    setTimeout(() => setShowFeedback(null), 1000);
   };
 
   return (
