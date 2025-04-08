@@ -45,7 +45,7 @@ const CoinTable = () => {
   };
 
   return (
-    <div className="min-h-screen pt-10 md:py-8 px-3 sm:px-4">
+    <div className="min-h-screen py-10 md:py-8 px-3 sm:px-4">
       {/* Animated Header Section */}
       <motion.div
         initial="hidden"
@@ -66,7 +66,7 @@ const CoinTable = () => {
 
       {/* Filters and Search Section */}
       <div className="mb-4 md:mb-6 flex flex-col md:flex-row gap-4 w-full">
-        <div className="w-full md:w-[35%] md:order-last mx-2 md:mx-0">
+        <div className="w-full md:w-[35%] md:order-last  md:mx-0">
           <SearchBar 
             onCoinSelect={(coin) => dispatch(setSelectedCoinId(coin?.id))}
           />
