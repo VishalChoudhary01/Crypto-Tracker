@@ -45,7 +45,7 @@ const SearchBar = () => {
           onChange={handleSearchChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-          className="w-full px-4 py-3 text-base rounded-full bg-gray-800/70 border border-gray-600 
+          className="w-full px-4 py-3 text-base rounded-full bg-teal-700/10 border border-gray-600 
                     text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 
                     backdrop-blur-sm transition-all duration-200 pl-12 pr-12"
         />
