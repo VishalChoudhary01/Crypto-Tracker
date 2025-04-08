@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin 'tailwind-scrollbar';
 
 /* Custom Animations */
 @keyframes aura-spin {
