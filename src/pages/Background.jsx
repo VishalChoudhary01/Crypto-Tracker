@@ -2,7 +2,7 @@ import React from 'react';
 
 const CryptoBackground = ({ children }) => {
   return (
-    <div className="relative w-full min-h-screen overflow-auto"> {/* This ensures the background is full screen, and content can overflow */}
+    <div className="relative w-full min-h-screen overflow-auto"> 
       
       {/* Background container */}
       <div className="absolute inset-0 z-0">
@@ -19,7 +19,6 @@ const CryptoBackground = ({ children }) => {
         <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_rgba(101,11,23,0.25)_0%,_transparent_60%)]" />
       </div>
 
-      {/* Content that will be displayed over the background */}
       <div className="relative z-10 w-full min-h-screen">
         {children}
       </div>
