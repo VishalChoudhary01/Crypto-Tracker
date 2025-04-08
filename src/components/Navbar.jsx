@@ -74,6 +74,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-1.5 rounded-md bg-gray-800/40 hover:bg-gray-700/50 transition-all duration-200"
+              aria-label="Toggle menu"
             >
               {isOpen ? (
                 <FaTimes className="h-5 w-5 text-white" />
@@ -85,67 +86,81 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <div className={`md:hidden fixed inset-0 z-40 ${isOpen ? 'block' : 'hidden'}`}>
-        {/* Backdrop */}
-        <div 
-          className={`fixed inset-0 bg-black/40 transition-opacity duration-200 ${
-            isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      {/* Mobile Sidebar with Right-to-Left Animation */}
+      <div className="md:hidden">
+        {/* Overlay */}
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 ${
+            isOpen ? "opacity-100 z-40" : "opacity-0 pointer-events-none -z-10"
           }`}
           onClick={() => setIsOpen(false)}
         />
-        
-        {/* Menu Container */}
-        <div 
-          className={`relative right-0 top-14 w-56 max-w-[90%] ml-auto bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl transform transition-transform duration-300 ease-out ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+
+        {/* Glassmorphism Sidebar */}
+        <div
+          className={`fixed right-0 top-0 h-full w-64 transform transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } z-50`}
         >
-          <div className="px-3 py-4 space-y-3">
-            <NavLink
-              to="/"
-              onClick={() => handleSectionChange('all')}
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 ${
-                  isActive
-                    ? ' bg-gradient-to-br from-emerald-600/70 to-cyan-500/80 text-white shadow-md scale-[1.02]'
-                    : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
-                }`
-              }
-            >
-              <FaCoins className="h-4 w-4" />
-              <span className="text-sm font-medium">Top Coins</span>
-            </NavLink>
+          <div className="h-full  bg-gradient-to-br from-teal-800/15 to-gray-950 backdrop-blur-2xl border-l border-teal-700/30 shadow-2xl">
+            {/* Sidebar Header */}
+            <div className="flex items-center justify-between px-6 h-14 border-b border-gray-700/30">
+              <Logo />
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1.5 rounded-md hover:bg-gray-700/40 transition-colors"
+              >
+                <FaTimes className="h-5 w-5 text-gray-300" />
+              </button>
+            </div>
 
-            <NavLink
-              to="/trending"
-              onClick={() => handleSectionChange('trending')}
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 ${
-                  isActive
-                    ? 'bg-gradient-to-br from-amber-600/60 to-red-500/80 text-white shadow-md scale-[1.02]'
-                    : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
-                }`
-              }
-            >
-              <FaFire className="h-4 w-4" />
-              <span className="text-sm font-medium">Trending</span>
-            </NavLink>
+            {/* Menu Items */}
+            <div className="p-4 space-y-2">
+              <NavLink
+                to="/"
+                onClick={() => handleSectionChange('all')}
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-emerald-600/30 to-cyan-500/20 text-white shadow-inner border border-emerald-400/20'
+                      : 'text-gray-300 hover:bg-gray-800/40 hover:text-white'
+                  }`
+                }
+              >
+                <FaCoins className="h-5 w-5 text-emerald-400" />
+                <span className="text-sm font-medium">Top Coins</span>
+              </NavLink>
 
-            <NavLink
-              to="/savedcoins"
-              onClick={() => handleSectionChange('saved')}
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 ${
-                  isActive
-                    ? 'bg-gradient-to-br from-blue-600/60 to-teal-500/80 text-white shadow-md scale-[1.02]'
-                    : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
-                }`
-              }
-            >
-              <FaBookmark className="h-4 w-4" />
-              <span className="text-sm font-medium">Saved Coins</span>
-            </NavLink>
+              <NavLink
+                to="/trending"
+                onClick={() => handleSectionChange('trending')}
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-amber-600/30 to-red-500/20 text-white shadow-inner border border-amber-400/20'
+                      : 'text-gray-300 hover:bg-gray-800/40 hover:text-white'
+                  }`
+                }
+              >
+                <FaFire className="h-5 w-5 text-amber-400" />
+                <span className="text-sm font-medium">Trending</span>
+              </NavLink>
+
+              <NavLink
+                to="/savedcoins"
+                onClick={() => handleSectionChange('saved')}
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-blue-600/30 to-teal-500/20 text-white shadow-inner border border-blue-400/20'
+                      : 'text-gray-300 hover:bg-gray-800/40 hover:text-white'
+                  }`
+                }
+              >
+                <FaBookmark className="h-5 w-5 text-blue-400" />
+                <span className="text-sm font-medium">Saved Coins</span>
+              </NavLink>
+            </div>
           </div>
         </div>
       </div>
