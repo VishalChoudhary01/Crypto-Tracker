@@ -135,7 +135,7 @@ const CoinTable = () => {
                 <option
                   key={option}
                   value={option}
-                  className="bg-[#080c12cc]/90 backdrop-blur-md text-[#51fabcfa]/80"
+                  className="bg-[#080c12cc]/90 uppercase backdrop-blur-md text-[#51fabcfa]/80"
                 >
                   {option.split("_").join(" ").replace("desc", "↓").replace("asc", "↑")}
                 </option>
