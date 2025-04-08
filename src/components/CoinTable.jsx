@@ -77,7 +77,7 @@ const CoinTable = () => {
             {/* Currency Selector */}
             <div className="w-full">
               <select
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/10 transition-all cursor-pointer"
                 value={currency}
                 onChange={(e) => dispatch(setCurrency(e.target.value))}
               >
@@ -92,7 +92,7 @@ const CoinTable = () => {
             {/* Items Per Page */}
             <div className="w-full">
               <select
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/10 transition-all cursor-pointer"
                 value={perPage}
                 onChange={(e) => {
                   dispatch(setPerPage(Number(e.target.value)));
@@ -110,7 +110,7 @@ const CoinTable = () => {
             {/* Sort Selector - Full width on mobile */}
             <div className="col-span-2 md:col-span-1 w-full">
               <select
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/10 transition-all cursor-pointer"
                 value={sortBy}
                 onChange={(e) => dispatch(setSortBy(e.target.value))}
               >
