@@ -25,7 +25,7 @@ const SavedCoins = () => {
       <h2 className="text-lg sm:text-xl md:text-2xl text-[#e2e8f0] mb-4 sm:mb-6 px-2 sm:px-0">Saved Coins</h2>
 
       {/* Saved Coins Table */}
-      <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10 mx-2 sm:mx-0">
+      <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10 mx-2 sm:mx-0 custom-scroll">
         <table className="w-full">
           <thead className="backdrop-blur-sm bg-white/15 border-b border-white/10">
             <tr>

@@ -74,7 +74,7 @@ const TrendingCoins = () => {
         </div>
 
         {/* Responsive Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 custom-scroll">
           {trendingCoins.map((coin) => {
             const priceChange = coin.data?.price_change_percentage_24h?.usd || 0;
             const isPositive = priceChange >= 0;

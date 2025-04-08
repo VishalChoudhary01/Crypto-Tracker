@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaBookmark, FaTimes } from "react-icons/fa";
-import { useGetAllCoinsQuery } from "../services/api";
+import { useGetAllCoinsQuery, } from "../services/api";
 import { setCurrency, setSortBy, setPage, setPerPage, setSelectedCoinId } from "../features/filterSlice";
 import { toggleSavedCoin } from "../features/savedCoinsSlice";
 import Toast from "./Toast";
@@ -170,7 +170,7 @@ const CoinTable = () => {
       {allFetching ? <Loader /> : null}
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10">
+      <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10 custom-scroll">
         <table className="w-full min-w-[600px] md:min-w-full">
           <thead className="backdrop-blur-sm bg-white/15 border-b border-white/10">
             <tr>
@@ -187,7 +187,7 @@ const CoinTable = () => {
           <tbody className="divide-y divide-white/10">
             {coins.length > 0 ? (
               coins.map((coin) => (
-                <tr key={coin.id} className="hover:bg-white/5 transition-colors duration-200 backdrop-blur-sm">
+                <tr key={coin.id}  className="hover:bg-white/5 transition-colors cursor-pointer duration-200 backdrop-blur-sm">
                   <td className="px-3 py-2 md:px-6 md:py-4 text-sm md:text-base text-[#cbd5e0]">
                     #{coin.market_cap_rank}
                   </td>
@@ -198,7 +198,7 @@ const CoinTable = () => {
                       className="w-6 h-6 md:w-8 md:h-8 mr-2 md:mr-3 rounded-full bg-white/10 p-1 backdrop-blur-sm"
                     />
                     <div>
-                      <div className="font-medium text-sm md:text-base text-[#e2e8f0] truncate">{coin.name}</div>
+                      <div onClick={() => dispatch(setSelectedCoinId(coin.id))} className="font-medium text-sm md:text-base text-[#e2e8f0] truncate">{coin.name}</div>
                       <div className="text-[#a0aec0] uppercase text-xs md:text-sm">{coin.symbol}</div>
                     </div>
                   </td>
