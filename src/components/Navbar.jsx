@@ -86,7 +86,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Sidebar with Right-to-Left Animation */}
+      {/* Mobile  */}
       <div className="md:hidden">
         {/* Overlay */}
         <div
@@ -142,7 +142,8 @@ const Navbar = () => {
                   }`
                 }
               >
-                <FaFire className="h-5 w-5 text-amber-400" />
+
+                <FaFire className="h-5 w-5 text-red-500" />
                 <span className="text-sm font-medium">Trending</span>
               </NavLink>
 

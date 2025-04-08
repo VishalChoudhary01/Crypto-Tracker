@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FaTrash, FaCoins } from "react-icons/fa";
+import { FaTrash, FaBookmark } from "react-icons/fa";
+
 import { toggleSavedCoin } from "../features/savedCoinsSlice";
 import { motion, AnimatePresence } from "motion/react";
 import Toast from "../components/Toast";
@@ -31,7 +32,7 @@ const SavedCoins = () => {
 
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8 space-x-3">
-          <FaCoins className="text-2xl text-amber-400" />
+          <FaBookmark className="h-5 w-5 text-blue-400" />
           <h1 className="text-2xl font-bold text-gray-100">Saved Coins</h1>
         </div>
 
