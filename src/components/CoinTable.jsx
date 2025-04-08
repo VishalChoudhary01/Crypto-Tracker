@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FaBookmark, FaTimes } from "react-icons/fa";
-import { useGetAllCoinsQuery, } from "../services/api";
+import { FaBookmark } from "react-icons/fa";
+import { motion } from "motion/react";
+import { useGetAllCoinsQuery } from "../services/api";
 import { setCurrency, setSortBy, setPage, setPerPage, setSelectedCoinId } from "../features/filterSlice";
 import { toggleSavedCoin } from "../features/savedCoinsSlice";
 import Toast from "./Toast";
 import Loader from "./Loader";
 import SearchBar from "./Searchbar";
+
 const CoinTable = () => {
   const dispatch = useDispatch();
   const [showFeedback, setShowFeedback] = useState(null);
@@ -37,139 +39,96 @@ const CoinTable = () => {
 
   const isSaved = (coinId) => savedCoins.some((coin) => coin.id === coinId);
 
-  const clearCoinSelection = () => {
-    dispatch(setSelectedCoinId(null));
-    dispatch(setPage(1));
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   return (
-    <div className="min-h-screen pt-10 md:pt-8 px-3 sm:px-4 bg-gradient-to-br">
-      <Toast showFeedback={showFeedback} isSaved={isSaved} />
+    <div className="min-h-screen pt-10 md:py-8 px-3 sm:px-4">
+      {/* Animated Header Section */}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={headerVariants}
+        className="mb-6 md:mb-8 px-2"
+      >
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-green-500 to-purple-600 bg-clip-text text-transparent pb-2">
+          Crypto Market Pulse
+        </h1>
+        <p className="text-sm md:text-base text-gray-400 mt-2">
+          Track real-time cryptocurrency market movements
+        </p>
+        <p><span className="block md:inline md:ml-2 text-xs text-gray-500">
+            Powered by CoinGecko API
+          </span></p>
+      </motion.div>
 
-      {/* Search Bar */}
-      <div className="mb-6 md:mb-8 max-w-2xl mx-auto">
-        <SearchBar onCoinSelect={(coin) => dispatch(setSelectedCoinId(coin?.id))} />
-      </div>
+      {/* Filters and Search Section */}
+      <div className="mb-4 md:mb-6 flex flex-col md:flex-row gap-4 w-full">
+        <div className="w-full md:w-[35%] md:order-last mx-2 md:mx-0">
+          <SearchBar 
+            onCoinSelect={(coin) => dispatch(setSelectedCoinId(coin?.id))}
+          />
+        </div>
 
-      {/* Filters Section */}
-      <div className="mb-4 md:mb-6 flex flex-col md:flex-row gap-3 items-start md:items-center justify-between">
-        <div className="flex flex-wrap gap-3 w-full md:w-auto">
-          {/* Currency Selector */}
-          <div className="relative flex-grow min-w-[120px]">
-            <select
-              className="w-full px-3 py-2 md:px-4 md:py-2.5 text-sm md:text-[15px] rounded-lg md:rounded-xl 
-                        backdrop-blur-sm bg-white/5 border border-white/10 text-[#e2e8f0] 
-                        focus:outline-none focus:ring-2 focus:ring-[#5bdf85]/20 transition-all duration-200 
-                        cursor-pointer appearance-none"
-              value={currency}
-              onChange={(e) => dispatch(setCurrency(e.target.value))}
-            >
-              {["inr", "usd", "eur", "gbp"].map((currency) => (
-                <option
-                  key={currency}
-                  value={currency}
-                  className="bg-[#080c12cc]/90 backdrop-blur-md text-[#51fabcfa]/80"
-                >
-                  {currency.toUpperCase()}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-              <svg
-                className="w-4 h-4 text-[#a0aec0]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div className="w-full md:w-[65%]">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 w-full">
+            {/* Currency Selector */}
+            <div className="w-full">
+              <select
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                value={currency}
+                onChange={(e) => dispatch(setCurrency(e.target.value))}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                {["inr", "usd", "eur", "gbp"].map((curr) => (
+                  <option key={curr} value={curr} className="bg-gray-800">
+                    {curr.toUpperCase()}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
 
-          {/* Items Per Page */}
-          <div className="relative min-w-[80px]">
-            <select
-              className="w-[95%] px-3 py-2 md:px-4 md:py-2.5 text-sm md:text-[15px] rounded-lg md:rounded-xl 
-                        backdrop-blur-sm bg-white/5 border border-white/10 text-[#e2e8f0] 
-                        focus:outline-none focus:ring-2 focus:ring-[#5bdf85]/20 transition-all duration-200 
-                        cursor-pointer appearance-none"
-              value={perPage}
-              onChange={(e) => {
-                dispatch(setPerPage(Number(e.target.value)));
-                dispatch(setPage(1));
-              }}
-            >
-              {[10, 20, 50, 100].map((num) => (
-                <option
-                  key={num}
-                  value={num}
-                  className="bg-[#080c12cc]/90 backdrop-blur-md text-[#51fabcfa]/80"
-                >
-                  {num}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-              <svg
-                className="w-4 h-4 text-[#a0aec0]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {/* Items Per Page */}
+            <div className="w-full">
+              <select
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                value={perPage}
+                onChange={(e) => {
+                  dispatch(setPerPage(Number(e.target.value)));
+                  dispatch(setPage(1));
+                }}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                {[10, 20, 50, 100].map((num) => (
+                  <option key={num} value={num} className="bg-gray-800">
+                    Show {num}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
 
-          {/* Sort Selector */}
-          <div className="relative min-w-[140px]">
-            <select
-              className="w-full pl-8 pr-8 py-2 md:pl-10 md:py-2.5 text-sm md:text-[15px] rounded-lg md:rounded-xl 
-                        backdrop-blur-sm bg-white/5 border border-white/10 text-[#e2e8f0] 
-                        focus:outline-none focus:ring-2 focus:ring-[#5bdf85]/20 transition-all duration-200 
-                        cursor-pointer appearance-none"
-              value={sortBy}
-              onChange={(e) => dispatch(setSortBy(e.target.value))}
-            >
-              {["Market_Cap_desc", "Market_Cap_asc", "Volume_desc", "Volume_asc"].map((option) => (
-                <option
-                  key={option}
-                  value={option}
-                  className="bg-[#080c12cc]/90  backdrop-blur-md text-[#51fabcfa]/80"
-                >
-                  {option.split("_").join(" ").replace("desc", "↓").replace("asc", "↑")}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-              <svg
-                className="w-4 h-4 text-[#a0aec0]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {/* Sort Selector - Full width on mobile */}
+            <div className="col-span-2 md:col-span-1 w-full">
+              <select
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all cursor-pointer"
+                value={sortBy}
+                onChange={(e) => dispatch(setSortBy(e.target.value))}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                {["Market_Cap_desc", "Market_Cap_asc", "Volume_desc", "Volume_asc"].map((option) => (
+                  <option key={option} value={option} className="bg-gray-800">
+                    {option.split("_").join(" ").replace("desc", "↓").replace("asc", "↑")}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
-
-        {/* Clear Selection Button */}
-        {selectedCoinId && (
-          <button
-            onClick={clearCoinSelection}
-            className="flex items-center gap-2 px-4 py-2 text-sm md:text-base 
-                     text-red-400 hover:text-red-300 transition-colors"
-          >
-            <FaTimes className="inline-block" />
-            Clear Selection
-          </button>
-        )}
       </div>
 
-      {allFetching ? <Loader /> : null}
+      {/* Loading State */}
+      {allFetching && <Loader />}
 
-      {/* Table */}
+{/* Table */}
       <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10 custom-scroll">
         <table className="w-full min-w-[600px] md:min-w-full">
           <thead className="backdrop-blur-sm bg-white/15 border-b border-white/10">
@@ -244,28 +203,30 @@ const CoinTable = () => {
         </table>
       </div>
 
-      {/* Pagination - Only show when not viewing single coin */}
+      {/* Pagination */}
       {!selectedCoinId && (
-        <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mt-4 md:mt-6">
-          <div className="flex gap-3 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mt-6">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
-              className="px-4 py-2 w-full sm:w-auto text-sm md:text-base rounded-lg backdrop-blur-sm bg-white/10 text-[#e2e8f0] hover:bg-white/15 disabled:bg-white/5 disabled:text-[#a0aec0] disabled:cursor-not-allowed transition-all"
+              className="px-5 py-2 text-sm rounded-xl bg-white/10 text-gray-200 hover:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               Previous
             </button>
+            <span className="text-sm text-gray-400">Page {page}</span>
             <button
               onClick={() => handlePageChange(page + 1)}
               disabled={coins.length < perPage}
-              className="px-4 py-2 w-full sm:w-auto text-sm md:text-base rounded-lg backdrop-blur-sm bg-white/10 text-[#e2e8f0] hover:bg-white/15 disabled:bg-white/5 disabled:text-[#a0aec0] disabled:cursor-not-allowed transition-all"
+              className="px-5 py-2 text-sm rounded-xl bg-white/10 text-gray-200 hover:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               Next
             </button>
           </div>
-          <div className="text-[#e2e8f0] text-sm md:text-base">Page {page}</div>
         </div>
       )}
+
+      <Toast showFeedback={showFeedback} isSaved={isSaved} />
     </div>
   );
 };

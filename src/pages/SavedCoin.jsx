@@ -23,7 +23,7 @@ const SavedCoins = () => {
   };
 
   return (
-    <div className="min-h-screen md:pt-6 pt-2 px-4 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="min-h-screen md:pt-6 pt-2 px-4 ">
       <Toast
         showFeedback={showFeedback}
         isSaved={(coinId) => savedCoins.some(c => c.id === coinId)}
@@ -170,6 +170,7 @@ const SavedCoins = () => {
           </AnimatePresence>
         </div>
 
+        {/* Empty State */}
         {savedCoins.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">No saved coins found</div>

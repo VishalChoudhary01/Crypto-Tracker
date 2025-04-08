@@ -5,7 +5,6 @@ import Navbar from './components/Navbar'
 import CoinTable from './components/CoinTable'
 import Trending from './pages/Trending'
 import SavedCoin from './pages/SavedCoin'
-import CryptoBackground from './pages/Background'
 import {store} from './app/store'
 import { Provider } from 'react-redux'
 import DetailsCryptoModal from './pages/DetailsCryptoModal'
@@ -13,7 +12,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <CryptoBackground>
           <Navbar />
             <Routes>
               <Route path="/" element={<CoinTable />} />
@@ -21,7 +19,6 @@ const App = () => {
               <Route path="/savedcoins" element={<SavedCoin />} />
             </Routes>
             <DetailsCryptoModal />
-        </CryptoBackground>
       </Router>
     </Provider>
   )

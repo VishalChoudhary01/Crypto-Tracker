@@ -6,6 +6,8 @@ import { setCurrency } from '../features/filterSlice';
 import { toggleSavedCoin } from '../features/savedCoinsSlice';
 import Toast from "../components/Toast";
 import Loader from "../components/Loader";
+import { FaFire } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const TrendingCoins = () => {
   const [showFeedback, setShowFeedback] = useState(null);
@@ -33,14 +35,32 @@ const TrendingCoins = () => {
     setTimeout(() => setShowFeedback(null), 1000);
   };
 
+  
   const isSaved = (coinId) => savedCoins.some((coin) => coin.id === coinId);
 
   if (isLoading) return <Loader />;
 
   return (
-    <div className="min-h-screen pt-20 px-4 pb-12 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="min-h-screen pt-2 px-4 pb-12 ">
       <Toast showFeedback={showFeedback} isSaved={isSaved} />
-      
+      <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5, delay: 0.2 }}
+    className="flex items-center gap-3 mb-6 md:mb-8"
+  >
+    <div className="relative group">
+      <div className="relative flex items-center gap-2 rounded-lg px-4 py-2">
+        <FaFire className=" text-red-500 text-xl" />
+        <h2 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">
+          Trending Coins
+        </h2>
+      </div>
+    </div>
+    <span className="hidden md:block text-gray-400 text-sm">
+      <span className="text-orange-400">Live</span> updates every 5 minutes
+    </span>
+  </motion.div>
       <div className="max-w-7xl mx-auto">
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-6 md:gap-4">
