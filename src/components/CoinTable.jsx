@@ -227,7 +227,7 @@ const CoinTable = () => {
                       onClick={() => handleBookMark(coin)}
                     >
                       <FaBookmark
-                        className={`text-sm md:text-base ${isSaved(coin.id) ? "fill-[#51fa86]" : "fill-[#a0aec0]"}`}
+                        className={`text-sm md:text-base ${isSaved(coin.id) ? "fill-[#51fa86] glow" : "fill-[#a0aec0]"}`}
                       />
                     </button>
                   </td>
