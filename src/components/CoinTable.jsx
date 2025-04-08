@@ -87,9 +87,9 @@ const CoinTable = () => {
           </div>
 
           {/* Items Per Page */}
-          <div className="relative min-w-[150px]">
+          <div className="relative min-w-[80px]">
             <select
-              className="w-full px-3 py-2 md:px-4 md:py-2.5 text-sm md:text-[15px] rounded-lg md:rounded-xl 
+              className="w-[95%] px-3 py-2 md:px-4 md:py-2.5 text-sm md:text-[15px] rounded-lg md:rounded-xl 
                         backdrop-blur-sm bg-white/5 border border-white/10 text-[#e2e8f0] 
                         focus:outline-none focus:ring-2 focus:ring-[#5bdf85]/20 transition-all duration-200 
                         cursor-pointer appearance-none"
@@ -105,7 +105,7 @@ const CoinTable = () => {
                   value={num}
                   className="bg-[#080c12cc]/90 backdrop-blur-md text-[#51fabcfa]/80"
                 >
-                  {num} / Page
+                  {num}
                 </option>
               ))}
             </select>
@@ -131,11 +131,11 @@ const CoinTable = () => {
               value={sortBy}
               onChange={(e) => dispatch(setSortBy(e.target.value))}
             >
-              {["Market_cap_desc", "market_cap_asc", "volume_desc", "volume_asc"].map((option) => (
+              {["Market_Cap_desc", "Market_Cap_asc", "Volume_desc", "Volume_asc"].map((option) => (
                 <option
                   key={option}
                   value={option}
-                  className="bg-[#080c12cc]/90 uppercase backdrop-blur-md text-[#51fabcfa]/80"
+                  className="bg-[#080c12cc]/90  backdrop-blur-md text-[#51fabcfa]/80"
                 >
                   {option.split("_").join(" ").replace("desc", "↓").replace("asc", "↑")}
                 </option>
