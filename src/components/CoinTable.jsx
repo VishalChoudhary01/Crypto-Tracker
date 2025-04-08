@@ -53,8 +53,8 @@ const CoinTable = () => {
         variants={headerVariants}
         className="mb-6 md:mb-8 px-2"
       >
-        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-green-500 to-purple-600 bg-clip-text text-transparent pb-2">
-          Crypto Market Pulse
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-green-500 to-[#430000] bg-clip-text text-transparent pb-2">
+          Crypto Tracker
         </h1>
         <p className="text-sm md:text-base text-gray-400 mt-2">
           Track real-time cryptocurrency market movements
