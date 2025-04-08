@@ -45,6 +45,9 @@ const CoinTable = () => {
   };
 
   return (
+    <>
+    {/* Loading State */}
+    {allFetching && <Loader />}
     <div className="min-h-screen py-10 md:py-8 px-3 sm:px-4">
       {/* Animated Header Section */}
       <motion.div
@@ -125,8 +128,7 @@ const CoinTable = () => {
         </div>
       </div>
 
-      {/* Loading State */}
-      {allFetching && <Loader />}
+      
 
 {/* Table */}
       <div className="overflow-x-auto rounded-lg md:rounded-xl backdrop-blur-lg bg-white/5 border border-white/10 custom-scroll">
@@ -228,6 +230,7 @@ const CoinTable = () => {
 
       <Toast showFeedback={showFeedback} isSaved={isSaved} />
     </div>
+    </>
   );
 };
 
